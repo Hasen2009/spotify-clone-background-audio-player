@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
@@ -7,7 +8,7 @@ import 'package:spotify2_app/data/repositories/track_repository.dart';
 
 part 'track_state.dart';
 
-class TrackCubit extends Cubit<TrackState>{
+class TrackCubit extends Cubit<TrackState> {
   final TrackRepository trackRepository = TrackRepository();
   TrackCubit() : super(TrackLoading());
 
@@ -19,11 +20,13 @@ class TrackCubit extends Cubit<TrackState>{
     try{
 
       final tracksFromRepo = await trackRepository.getTracks(playlist_id);
-      await PlayerService.setPlaylist(tracksFromRepo);
+      PlayerService.setPlaylist(tracksFromRepo);
       emit(TrackLoaded(tracks: tracksFromRepo));
 
     }catch(e){
       emit(TrackError());
     }
   }
+
+
 }

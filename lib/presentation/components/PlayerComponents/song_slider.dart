@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
+import 'package:spotify2_app/logic/cubits/track_cubit.dart';
 import 'package:spotify2_app/presentation/components/ProfileComponents/vertical_playlist.dart';
 import 'package:spotify2_app/presentation/screens/player_screen.dart';
 
@@ -22,9 +25,9 @@ class _SongSliderState extends State<SongSlider> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 double remainingDuration = 0.0;
-                if(snapshot?.data?.duration?.inSeconds?.toDouble() != null){
+                if(snapshot?.data?.mediaItem?.duration?.inSeconds?.toDouble() != null){
                   remainingDuration =
-                      snapshot.data?.duration?.inSeconds?.toDouble() -
+                      snapshot?.data?.mediaItem?.duration?.inSeconds?.toDouble() -
                           snapshot.data?.position?.inSeconds?.toDouble();
                 }
 
@@ -41,8 +44,8 @@ class _SongSliderState extends State<SongSlider> {
                           PlayerService.seekTo(Duration(seconds: val.toInt()));
                         },
                         min: 0,
-                        max: (snapshot.data?.duration?.inSeconds?.toDouble() != null) ? snapshot.data?.duration?.inSeconds?.toDouble() : 0.0,
-                        value: snapshot.data?.position?.inSeconds?.toDouble(),
+                        max: (snapshot.data?.mediaItem?.duration?.inSeconds?.toDouble() != null) ? snapshot.data?.mediaItem?.duration?.inSeconds?.toDouble() : 0.0,
+                        value: (snapshot.data?.position?.inSeconds?.toDouble() != null) ? snapshot.data?.position?.inSeconds?.toDouble() : 0.0,
                       ),
                     ),
                     Container(
@@ -51,9 +54,9 @@ class _SongSliderState extends State<SongSlider> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          (snapshot.data?.duration != null)
+                          (snapshot.data?.mediaItem?.duration != null)
                               ? Text(
-              snapshot.data?.duration?.inSeconds?.toDouble()?.toString(),
+              snapshot.data?.mediaItem?.duration?.inSeconds?.toDouble()?.toString(),
                             style: Theme.of(context).textTheme.subtitle2,
                           )
                               : Text(
@@ -97,10 +100,12 @@ class _SongSliderState extends State<SongSlider> {
                   SizedBox(
                     width: 10,
                   ),
-                  StreamBuilder<PlayerState>(
+
+                  StreamBuilder<PlaybackState>(
                       stream: PlayerService.getPlayerStateStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
+
                           return ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(70)),
                             child: Container(
@@ -117,6 +122,7 @@ class _SongSliderState extends State<SongSlider> {
                               ),
                             ),
                           );
+
                         }
                         return Center(child: CircularProgressIndicator());
                       }),

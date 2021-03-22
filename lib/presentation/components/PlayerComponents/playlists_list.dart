@@ -23,7 +23,7 @@ class _TrackPlaylistState extends State<TrackPlaylist> {
       itemCount: widget.tracks.length,
       itemBuilder: (context,index){
         final track = widget.tracks[index];
-        return TrackPlaylistsListItem(image_url:track.image,album_name: track.album_name,artist_name: track.artist_name,url: track.url,index: index,);
+        return TrackPlaylistsListItem(image_url:track.image,album_name: track.album_name,artist_name: track.artist_name,url: track.url,);
       },
     );;
   }

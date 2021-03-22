@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:spotify2_app/core/constants/constants.dart';
@@ -13,14 +14,13 @@ class TrackPlaylistsListItem extends StatelessWidget {
   final String artist_name;
   final String album_name;
   final String url;
-  final int index;
 
-  TrackPlaylistsListItem(
-      {@required this.image_url,
-      @required this.album_name,
-      @required this.artist_name,
-      @required this.url,
-      @required this.index});
+  TrackPlaylistsListItem({
+    @required this.image_url,
+    @required this.album_name,
+    @required this.artist_name,
+    @required this.url,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,34 +67,32 @@ class TrackPlaylistsListItem extends StatelessWidget {
           child: StreamBuilder<CurrentIndexState>(
               stream: PlayerService.getPlayerCurrentIndexState(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.index == index) {
+                if (snapshot.hasData ) {
+                  if (snapshot?.data?.mediaItem?.id == url) {
                     return Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         (!snapshot.data.playerState.playing)
-                        ?
-                        IconButton(
-                          icon: Icon(
-                            Icons.play_arrow,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: ()async {
-                            await PlayerService.play();
-                          },
-                        )
-                    :
-                        IconButton(
-                          icon: Icon(
-                            Icons.pause,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: ()async {
-                            await PlayerService.pause();
-                          },
-                        )
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.play_arrow,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () async {
+                                  await PlayerService.play();
+                                },
+                              )
+                            : IconButton(
+                                icon: Icon(
+                                  Icons.pause,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () async {
+                                  await PlayerService.pause();
+                                },
+                              )
                       ],
                     );
                   }
@@ -106,7 +104,7 @@ class TrackPlaylistsListItem extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           onTap: () async {
-                            await PlayerService.skipToTrack(index);
+                            await PlayerService.skipToTrack(url);
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(30)),

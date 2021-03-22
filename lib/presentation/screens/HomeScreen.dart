@@ -22,6 +22,27 @@ class _HomeScreenState extends State<HomeScreen> {
     PlayListPage(),
     ProfilePage()
   ];
+  // void showOverlay(BuildContext context){
+  //
+  //   OverlayState overlayState = Overlay.of(context);
+  //   OverlayEntry overlayEntry = OverlayEntry(builder: (context){
+  //     double h = 200;
+  //     return Positioned(
+  //       bottom: 56,
+  //       right: 0,
+  //       child: Container(
+  //         height: height,
+  //         width: MediaQuery.of(context).size.width,
+  //         color: Colors.green,
+  //         child: RaisedButton(onPressed: (){
+  //           print('hi');
+  //             h =100;
+  //         },child: Text('hi')),
+  //       ),
+  //     );
+  //   });
+  //   overlayState.insert(overlayEntry);
+  // }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index){
+            // showOverlay(context);
             setState(() {
               _currentIndex = index;
             });
@@ -46,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey[500],
               ),
               label: 'Home',
-
               backgroundColor: Color.fromARGB(255, 20, 20, 20),
             ),
             BottomNavigationBarItem(
@@ -90,4 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 }
+
