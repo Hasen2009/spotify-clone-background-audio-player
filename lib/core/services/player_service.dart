@@ -2,11 +2,30 @@ import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spotify2_app/data/models/track_model.dart';
-import 'package:flutter/material.dart';
 class PlayerService {
-  static Future<void> setPlaylist(List<TrackModel> playlist) async {
+  static Future<void> startPlayer() async {
     if(!AudioService.connected){
       await AudioService.connect();
+    }
+    // final List<Map<String, String>> list = [];
+    //
+    // for (var e in playlist) {
+    //   list.add({
+    //     'artist_name': e.artist_name,
+    //     'album_name': e.album_name,
+    //     'url': e.url,
+    //     'image': e.image
+    //   });
+    // }
+
+    await AudioService.start(
+      backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
+      // params: {'playlist': list},
+    );
+  }
+  static Future<void> updatePlaylist(List<TrackModel> playlist) async {
+    if(!AudioService.running){
+      await PlayerService.startPlayer();
     }
     final List<Map<String, String>> list = [];
 
@@ -19,12 +38,8 @@ class PlayerService {
       });
     }
 
-    await AudioService.start(
-      backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
-      params: {'playlist': list},
-    );
+    await AudioService.customAction('update',[list]);
   }
-
   static Future<void> play() async {
     //finish
     await AudioService.play();
@@ -42,8 +57,8 @@ class PlayerService {
 
   static Future<void> dispose() async {
     //finish
-    await AudioService.stop();
-    await AudioService.disconnect();
+    // await AudioService.stop();
+    // await AudioService.disconnect();
   }
 
   static Future<void> skipNext() async {
@@ -123,14 +138,15 @@ class AudioPlayerTask extends BackgroundAudioTask {
   static List<MediaItem> mediaItems = [];
 
   @override
-  Future<void> onStart(Map<String, dynamic> params) async {
-
-    _player = AudioPlayer();
-    List<AudioSource> playlistUrls = [];
-    tracks = params['playlist'];
-
+  Future onCustomAction(String name, arguments) async{
+    if(!AudioService.connected){
+      await AudioService.connect();
+    }
+    tracks = arguments[0];
+    if(mediaItems.length > 0){
+      mediaItems.clear();
+    }
     for (var track in tracks) {
-      playlistUrls.add(AudioSource.uri(Uri.parse(track['url'])));
       mediaItems.add(
         MediaItem(
           id: track['url'],
@@ -141,6 +157,14 @@ class AudioPlayerTask extends BackgroundAudioTask {
         ),
       );
     }
+    await AudioService.updateQueue(mediaItems);
+    await AudioService.skipToQueueItem(mediaItems[0].id);
+    AudioService.play();
+  }
+  @override
+  Future<void> onUpdateQueue(List<MediaItem> queue) async{
+
+
     await _player.setAudioSource(
       ConcatenatingAudioSource(
         // Start loading next item just before reaching it.
@@ -148,14 +172,52 @@ class AudioPlayerTask extends BackgroundAudioTask {
         // Customise the shuffle algorithm.
         shuffleOrder: DefaultShuffleOrder(), // default
         // Specify the items in the playlist.
-        children: playlistUrls,
+        children: queue.map((item) => AudioSource.uri(Uri.parse(item.id))).toList(),
       ),
       // Playback will be prepared to start from track1.mp3
       initialIndex: 0, // default
       // Playback will be prepared to start from position zero.
       initialPosition: Duration.zero, // default
     );
-    await AudioServiceBackground.setQueue(mediaItems);
+    if(AudioServiceBackground.queue != null){
+      AudioServiceBackground.queue.clear();
+    }
+    await AudioServiceBackground.setQueue(queue);
+  }
+  @override
+  Future<void> onStart(Map<String, dynamic> params) async {
+
+    _player = AudioPlayer();
+    // List<AudioSource> playlistUrls = [];
+    // tracks = params['playlist'];
+    //
+    // for (var track in tracks) {
+    //   playlistUrls.add(AudioSource.uri(Uri.parse(track['url'])));
+    //   mediaItems.add(
+    //     MediaItem(
+    //       id: track['url'],
+    //       album: track['album_name'],
+    //       title: track['artist_name'],
+    //       duration: Duration(seconds: 29),
+    //       artUri: track['image'],
+    //     ),
+    //   );
+    // }
+    // await _player.setAudioSource(
+    //   ConcatenatingAudioSource(
+    //     // Start loading next item just before reaching it.
+    //     useLazyPreparation: true, // default
+    //     // Customise the shuffle algorithm.
+    //     shuffleOrder: DefaultShuffleOrder(), // default
+    //     // Specify the items in the playlist.
+    //     children: playlistUrls,
+    //   ),
+    //   // Playback will be prepared to start from track1.mp3
+    //   initialIndex: 0, // default
+    //   // Playback will be prepared to start from position zero.
+    //   initialPosition: Duration.zero, // default
+    // );
+    // await AudioServiceBackground.setQueue(mediaItems);
     _player.currentIndexStream.listen((index) async {
       if (index == null) return;
       await AudioServiceBackground.setMediaItem(mediaItems[index]);
@@ -163,14 +225,9 @@ class AudioPlayerTask extends BackgroundAudioTask {
     _player.playbackEventStream.listen((event) {
       _broadcastState();
     });
-    // await AudioServiceBackground.setState(
-    //   controls: [],
-    //   processingState: AudioProcessingState.stopped,
-    //   playing: false,
-    // );
-    await onPlay();
-  }
 
+    // await onPlay();
+  }
   Future<void> _broadcastState() async {
     await AudioServiceBackground.setState(
       controls: [
@@ -212,7 +269,8 @@ class AudioPlayerTask extends BackgroundAudioTask {
 
   @override
   Future<void> onStop() async {
-    await _player.dispose();
+
+    // await _player.dispose();
     await _broadcastState();
     await AudioServiceBackground.setState(
       controls: [],
@@ -250,8 +308,10 @@ class AudioPlayerTask extends BackgroundAudioTask {
   Future<void> onSkipToQueueItem(String mediaId) async {
     final newIndex = mediaItems.indexWhere((item) => item.id == mediaId);
     await AudioServiceBackground.setMediaItem(mediaItems[newIndex]);
+
     await _player.seek(Duration(seconds: 0), index: newIndex);
-    await onPlay();
+    onPlay();
+
   }
 
   @override

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/core/routes/route.dart';
 import 'package:spotify2_app/core/themes/appTheme.dart';
 import 'package:spotify2_app/logic/cubits/playlist_cubit.dart';
-import 'package:spotify2_app/logic/cubits/track_cubit.dart';
 
 class App extends StatelessWidget {
   @override

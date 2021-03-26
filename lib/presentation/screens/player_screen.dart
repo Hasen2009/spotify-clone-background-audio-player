@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/logic/cubits/track_cubit.dart';
 import 'package:spotify2_app/presentation/components/PlayerComponents/player_header.dart';
 import 'package:spotify2_app/presentation/components/PlayerComponents/playlists_list.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
 import 'package:spotify2_app/presentation/components/spinning_wheel.dart';
 
@@ -39,7 +38,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: BlocBuilder<TrackCubit, TrackState>(
-        cubit: BlocProvider.of<TrackCubit>(context)..init(),
+        // cubit: BlocProvider.of<TrackCubit>(context)..init(),
         builder: (context, state) {
           if (state is TrackLoading) {
             return Center(child: CircularProgressIndicator());

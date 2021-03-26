@@ -20,7 +20,7 @@ class TrackCubit extends Cubit<TrackState> {
     try{
 
       final tracksFromRepo = await trackRepository.getTracks(playlist_id);
-      PlayerService.setPlaylist(tracksFromRepo);
+      await PlayerService.updatePlaylist(tracksFromRepo);
       emit(TrackLoaded(tracks: tracksFromRepo));
 
     }catch(e){

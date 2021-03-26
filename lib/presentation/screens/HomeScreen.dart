@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify2_app/core/services/player_service.dart';
 import 'package:spotify2_app/data/dataproviders/spotify_dataprovider.dart';
 import 'package:spotify2_app/data/repositories/playlist_repository.dart';
 import 'package:spotify2_app/data/repositories/track_repository.dart';
@@ -14,35 +15,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int _currentIndex = 0;
-  final List taps = [
-    HomePage(),
-    SearchPage(),
-    PlayListPage(),
-    ProfilePage()
-  ];
-  // void showOverlay(BuildContext context){
-  //
-  //   OverlayState overlayState = Overlay.of(context);
-  //   OverlayEntry overlayEntry = OverlayEntry(builder: (context){
-  //     double h = 200;
-  //     return Positioned(
-  //       bottom: 56,
-  //       right: 0,
-  //       child: Container(
-  //         height: height,
-  //         width: MediaQuery.of(context).size.width,
-  //         color: Colors.green,
-  //         child: RaisedButton(onPressed: (){
-  //           print('hi');
-  //             h =100;
-  //         },child: Text('hi')),
-  //       ),
-  //     );
-  //   });
-  //   overlayState.insert(overlayEntry);
-  // }
+  final List taps = [HomePage(), SearchPage(), PlayListPage(), ProfilePage()];
+
+  void showOverlay(BuildContext context) {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
+      double h = 200;
+      return Positioned(
+        bottom: 56,
+        right: 0,
+        child: Container(
+          height: h,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.green,
+          child: RaisedButton(
+              onPressed: () {
+                print('hi');
+                h = 100;
+              },
+              child: Text('hi')),
+        ),
+      );
+    });
+    overlayState.insert(overlayEntry);
+  }
+
+  @override
+  void initState() {
+    PlayerService.startPlayer();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,15 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
         body: taps[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
-          onTap: (index){
-            // showOverlay(context);
+          onTap: (index) {
+            showOverlay(context);
             setState(() {
               _currentIndex = index;
             });
           },
           items: [
             BottomNavigationBarItem(
-              activeIcon:Icon(
+              activeIcon: Icon(
                 Icons.home,
                 color: Colors.white,
               ),
@@ -111,6 +114,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }
-
