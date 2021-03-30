@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify2_app/core/constants/constants.dart';
-import 'package:spotify2_app/presentation/components/HomeComponents/pickedListItem.dart';
+import 'package:spotify2_app/presentation/components/HomeComponents/picked_list_item.dart';
 
 class PickedList extends StatelessWidget {
   @override

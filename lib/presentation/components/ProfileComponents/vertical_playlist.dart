@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify2_app/core/constants/constants.dart';
 import 'package:spotify2_app/logic/cubits/playlist_cubit.dart';
-import 'package:spotify2_app/logic/cubits/track_cubit.dart';
 import 'package:spotify2_app/presentation/components/ProfileComponents/verical_playlist_item.dart';
 
 class VerticalPlaylist extends StatefulWidget {

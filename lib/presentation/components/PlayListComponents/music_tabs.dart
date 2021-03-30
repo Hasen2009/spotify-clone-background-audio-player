@@ -15,7 +15,6 @@ class MusicTabs extends StatelessWidget {
               indicatorColor: Colors.green,
               indicatorSize: TabBarIndicatorSize.label,
               labelStyle: Theme.of(context).textTheme.subtitle1,
-              // labelPadding: EdgeInsets.only(right: 20),
               unselectedLabelStyle: Theme.of(context).textTheme.subtitle2,
               isScrollable: true,
               tabs: [

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify2_app/core/constants/constants.dart';
 import 'package:spotify2_app/data/models/track_model.dart';
-import 'package:spotify2_app/logic/cubits/playlist_cubit.dart';
-import 'file:///C:/Users/hussein/AndroidStudioProjects/spotify2_app/lib/presentation/components/PlayerComponents/playlists_list_item.dart';
-import 'package:spotify2_app/logic/cubits/track_cubit.dart';
+import 'package:spotify2_app/presentation/components/PlayerComponents/track_playlist_item.dart';
 
 class TrackPlaylist extends StatefulWidget {
   final List<TrackModel> tracks;

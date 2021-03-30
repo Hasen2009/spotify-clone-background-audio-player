@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spotify2_app/presentation/components/HomeComponents/pickedList.dart';
-import 'file:///C:/Users/hussein/AndroidStudioProjects/spotify2_app/lib/presentation/components/PlayerComponents/playlists_list.dart';
+import 'package:spotify2_app/presentation/components/HomeComponents/picked_list.dart';
+import 'file:///C:/Users/hussein/AndroidStudioProjects/spotify2_app/lib/presentation/components/PlayerComponents/track_playlist.dart';
 import 'package:spotify2_app/presentation/components/ProfileComponents/vertical_playlist.dart';
 
 class PlaylistTabView extends StatelessWidget {

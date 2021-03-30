@@ -1,11 +1,6 @@
-import 'dart:async';
 
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:spotify2_app/core/constants/constants.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
-import 'package:spotify2_app/presentation/screens/player_screen.dart';
 
 import '../spinning_wheel.dart';
 

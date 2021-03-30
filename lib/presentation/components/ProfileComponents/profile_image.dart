@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify2_app/core/constants/constants.dart';
 
 class ProfileImage extends StatelessWidget {
   final String image_url;

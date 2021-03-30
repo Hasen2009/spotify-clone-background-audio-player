@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
-import 'package:spotify2_app/data/dataproviders/spotify_dataprovider.dart';
-import 'package:spotify2_app/data/repositories/playlist_repository.dart';
-import 'package:spotify2_app/data/repositories/track_repository.dart';
-import 'package:spotify2_app/presentation/components/PlayerComponents/player_wrapper.dart';
 import 'package:spotify2_app/presentation/pages/HomePage.dart';
 import 'package:spotify2_app/presentation/pages/PlayListPage.dart';
 import 'package:spotify2_app/presentation/pages/ProfilePage.dart';

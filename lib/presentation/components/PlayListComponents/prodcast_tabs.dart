@@ -24,6 +24,24 @@ class ProdcastsTabs extends StatelessWidget {
                 Tab(text: "Downloads"),
                 Tab(text: "Shows"),
               ],
+
+            ),
+
+          ),
+          body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: TabBarView(
+              children: [
+                Center(
+                  child: Text('Nothing to show here yet< sorry !',style: Theme.of(context).textTheme.headline3,),
+                ),
+                Center(
+                  child: Text('Nothing to show here yet< sorry !',style: Theme.of(context).textTheme.headline3,),
+                ),
+                Center(
+                  child: Text('Nothing to show here yet< sorry !',style: Theme.of(context).textTheme.headline3,),
+                ),
+              ],
             ),
           ),
         ));

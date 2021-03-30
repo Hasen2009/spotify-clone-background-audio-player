@@ -11,13 +11,11 @@ class PlaylistLoaded extends PlaylistState{
   final List<PlaylistModel> playlists;
   PlaylistLoaded({this.playlists});
   @override
-  // TODO: implement props
   List<Object> get props => [playlists];
 
 }
 
 class PlaylistError extends PlaylistState{
   @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }

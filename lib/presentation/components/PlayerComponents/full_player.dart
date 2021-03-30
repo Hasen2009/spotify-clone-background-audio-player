@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/logic/cubits/track_cubit.dart';
 import 'package:spotify2_app/presentation/components/PlayerComponents/player_header.dart';
-import 'package:spotify2_app/presentation/components/PlayerComponents/playlists_list.dart';
+import 'package:spotify2_app/presentation/components/PlayerComponents/track_playlist.dart';
 import 'package:spotify2_app/logic/cubits/player_cubit.dart';
 
 class FullPlayer extends StatelessWidget {
@@ -20,16 +20,13 @@ class FullPlayer extends StatelessWidget {
         appBar: AppBar(
           title: Text('Player'),
           leading: new IconButton(
-              icon: new Icon(Icons.close),
+              icon: new Icon(Icons.arrow_downward),
               onPressed: () async {
-                // await BlocProvider.of<TrackCubit>(context).close();
-                // Navigator.pop(context);
                 BlocProvider.of<PlayerCubit>(context).minifyPlayer();
               }),
           backgroundColor: Theme.of(context).backgroundColor,
         ),
         body: BlocBuilder<TrackCubit, TrackState>(
-          // cubit: BlocProvider.of<TrackCubit>(context)..init(),
           builder: (context, state) {
             print(state);
             if (state is TrackLoading) {

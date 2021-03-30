@@ -1,5 +1,4 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spotify2_app/data/models/track_model.dart';
@@ -232,12 +231,14 @@ class AudioPlayerTask extends BackgroundAudioTask {
 
   @override
   Future<void> onStop() async {
-    await _broadcastState();
     await AudioServiceBackground.setState(
       controls: [],
       processingState: AudioProcessingState.stopped,
       playing: false,
     );
+    await _broadcastState();
+
+    _player.dispose();
     await super.onStop();
   }
 

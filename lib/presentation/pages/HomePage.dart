@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spotify2_app/presentation/components/HomeComponents/HorizontalPlayList.dart';
-import 'package:spotify2_app/presentation/components/HomeComponents/pickedList.dart';
+import 'package:spotify2_app/presentation/components/HomeComponents/horizontal_playList.dart';
+import 'package:spotify2_app/presentation/components/HomeComponents/picked_list.dart';
 
 class HomePage extends StatelessWidget {
   @override
