@@ -7,6 +7,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       child: SingleChildScrollView(

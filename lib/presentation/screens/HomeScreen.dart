@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
 import 'package:spotify2_app/data/dataproviders/spotify_dataprovider.dart';
 import 'package:spotify2_app/data/repositories/playlist_repository.dart';
 import 'package:spotify2_app/data/repositories/track_repository.dart';
+import 'package:spotify2_app/presentation/components/PlayerComponents/player_wrapper.dart';
 import 'package:spotify2_app/presentation/pages/HomePage.dart';
 import 'package:spotify2_app/presentation/pages/PlayListPage.dart';
 import 'package:spotify2_app/presentation/pages/ProfilePage.dart';
 import 'package:spotify2_app/presentation/pages/SearchPage.dart';
-import 'package:spotify2_app/presentation/screens/player_screen.dart';
+import 'package:spotify2_app/logic/cubits/player_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,36 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List taps = [HomePage(), SearchPage(), PlayListPage(), ProfilePage()];
 
-  void showOverlay(BuildContext context) {
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
-      double h = 200;
-      return Positioned(
-        bottom: 56,
-        right: 0,
-        child: Container(
-          height: h,
-          width: MediaQuery.of(context).size.width,
-          color: Colors.green,
-          child: RaisedButton(
-              onPressed: () {
-                print('hi');
-                h = 100;
-              },
-              child: Text('hi')),
-        ),
-      );
-    });
-    overlayState.insert(overlayEntry);
-  }
+
 
   @override
   void initState() {
-    PlayerService.startPlayer();
     super.initState();
+    PlayerService.startPlayer();
+
   }
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -55,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {
-            showOverlay(context);
             setState(() {
+              BlocProvider.of<PlayerCubit>(context).minifyPlayer();
               _currentIndex = index;
             });
           },

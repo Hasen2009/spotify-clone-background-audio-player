@@ -11,7 +11,6 @@ class PlaylistCubit extends Cubit<PlaylistState>{
   PlaylistCubit() : super(PlaylistLoading());
 
   void getPlaylists()async {
-    print('loaded !!');
     try{
       final playlistsFromRepo = await playlistRepository.getPlayListData();
       emit(PlaylistLoaded(playlists: playlistsFromRepo));
@@ -20,7 +19,8 @@ class PlaylistCubit extends Cubit<PlaylistState>{
     }
   }
 
-  void navigateToTacks(String id){
-    emit(PlaylistRoute(id: id));
+  void init()async {
+    emit(PlaylistLoading());
+
   }
 }

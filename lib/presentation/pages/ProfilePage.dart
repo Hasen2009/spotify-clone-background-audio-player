@@ -13,7 +13,7 @@ class ProfilePage extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
       child: SingleChildScrollView(
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +28,9 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: 30,),
           Text("Your List",style: Theme.of(context).textTheme.headline5,),
           SizedBox(height: 15,),
-          VerticalPlaylist()
+          VerticalPlaylist(),
+          SizedBox(height: 80,),
+
         ],
           ),
       ),

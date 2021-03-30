@@ -6,8 +6,10 @@ class MainTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       color: Theme.of(context).backgroundColor,
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 20),
       child: DefaultTabController(
           length: 2,
           child: Scaffold(

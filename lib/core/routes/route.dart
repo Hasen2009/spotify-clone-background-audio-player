@@ -11,9 +11,9 @@ class AppRoute {
      switch(name){
        case '/':
          return _materialRoute(AudioServiceWidget(child: HomeScreen()));
-       case '/player' :
-         print(args);
-         return _materialRoute(PlayerScreenWrapper(playlist_id: args,));
+       // case '/player' :
+       //   print(args);
+       //   return _materialRoute(PlayerScreenWrapper(playlist_id: args,));
        default :
          return null;
      }

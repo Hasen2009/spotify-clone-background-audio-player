@@ -18,7 +18,6 @@ class _VerticalPlaylistState extends State<VerticalPlaylist> {
   }
   @override
   Widget build(BuildContext context) {
-    // BlocProvider.of<PlaylistCubit>(context).getPlaylists();
     return BlocBuilder<PlaylistCubit,PlaylistState>(
       builder:(context,state) {
         if(state is PlaylistLoading){

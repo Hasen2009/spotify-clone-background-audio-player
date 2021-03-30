@@ -24,6 +24,7 @@ class TrackCubit extends Cubit<TrackState> {
       emit(TrackLoaded(tracks: tracksFromRepo));
 
     }catch(e){
+      print(e.toString());
       emit(TrackError());
     }
   }

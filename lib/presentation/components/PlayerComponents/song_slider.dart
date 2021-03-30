@@ -1,21 +1,12 @@
-import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:spotify2_app/core/services/player_service.dart';
-import 'package:spotify2_app/core/services/player_service.dart';
-import 'package:spotify2_app/logic/cubits/track_cubit.dart';
-import 'package:spotify2_app/presentation/components/ProfileComponents/vertical_playlist.dart';
-import 'package:spotify2_app/presentation/screens/player_screen.dart';
+import 'package:spotify2_app/presentation/components/spinning_wheel.dart';
 
-class SongSlider extends StatefulWidget {
-  @override
-  _SongSliderState createState() => _SongSliderState();
-}
 
-class _SongSliderState extends State<SongSlider> {
+
+class SongSlider extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -105,26 +96,26 @@ class _SongSliderState extends State<SongSlider> {
                       stream: PlayerService.getPlayerStateStream(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-
-                          return ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(70)),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              color: Colors.green,
-                              child: IconButton(
-                                icon: snapshot.data.playing?Icon(Icons.pause) : Icon(Icons.play_arrow),
-                                color: Colors.white,
-                                iconSize: 30,
-                                onPressed: () async {
-                                  snapshot.data.playing ? await PlayerService.pause() :
-                                  await PlayerService.play();
-                                },
+                          if(snapshot?.data?.processingState == AudioProcessingState.ready){
+                            return ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(70)),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                color: Colors.green,
+                                child: IconButton(
+                                  icon: snapshot.data.playing?Icon(Icons.pause) : Icon(Icons.play_arrow),
+                                  color: Colors.white,
+                                  iconSize: 30,
+                                  onPressed: () async {
+                                    snapshot.data.playing ? await PlayerService.pause() :
+                                    await PlayerService.play();
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-
+                            );
+                          }
                         }
-                        return Center(child: CircularProgressIndicator());
+                        return SpinningWheel();
                       }),
                   SizedBox(
                     width: 10,

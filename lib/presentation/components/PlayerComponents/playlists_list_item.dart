@@ -62,67 +62,52 @@ class TrackPlaylistsListItem extends StatelessWidget {
             ],
           ),
         ),
-        Flexible(
+        SizedBox(width: 20,),
+        Expanded(
           flex: 1,
           child: StreamBuilder<CurrentIndexState>(
               stream: PlayerService.getPlayerCurrentIndexState(),
               builder: (context, snapshot) {
                 if (snapshot.hasData ) {
                   if (snapshot?.data?.mediaItem?.id == url) {
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        (!snapshot.data.playerState.playing)
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.play_arrow,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                onPressed: () async {
-                                  await PlayerService.play();
-                                },
-                              )
-                            : IconButton(
-                                icon: Icon(
-                                  Icons.pause,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                onPressed: () async {
-                                  await PlayerService.pause();
-                                },
-                              )
-                      ],
+                    return (!snapshot.data.playerState.playing)
+                        ? IconButton(
+                      icon: Icon(
+                        Icons.play_arrow,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () async {
+                        await PlayerService.play();
+                      },
+                    )
+                        : IconButton(
+                      icon: Icon(
+                        Icons.pause,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () async {
+                        await PlayerService.pause();
+                      },
                     );
                   }
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () async {
-                            await PlayerService.skipToTrack(url);
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            child: Container(
-                              padding: EdgeInsets.all(4),
-                              color: Colors.green,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.play_arrow,
-                                  color: Colors.white,
-                                ),
-                                iconSize: 25,
-                              ),
-                            ),
-                          ),
+                  return GestureDetector(
+                    onTap: () async {
+                      await PlayerService.skipToTrack(url);
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        padding: EdgeInsets.all(4),
+                        color: Colors.green,
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 25,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   );
                 }
                 return SpinningWheel();

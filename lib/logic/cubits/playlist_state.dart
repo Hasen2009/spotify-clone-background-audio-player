@@ -4,7 +4,7 @@ abstract class PlaylistState extends Equatable{}
 
 class PlaylistLoading extends PlaylistState {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
 
 class PlaylistLoaded extends PlaylistState{
@@ -14,13 +14,6 @@ class PlaylistLoaded extends PlaylistState{
   // TODO: implement props
   List<Object> get props => [playlists];
 
-}
-class PlaylistRoute extends PlaylistState{
-  final String id;
-  PlaylistRoute({this.id});
-  @override
-  // TODO: implement props
-  List<Object> get props => [id];
 }
 
 class PlaylistError extends PlaylistState{
