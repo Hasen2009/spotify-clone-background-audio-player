@@ -22,4 +22,4 @@ flutter pub get
 ```
 
 ## Contact
-Contct me on [Twitter](https://twitter.com/creativelife2)
+Contact me on [Twitter](https://twitter.com/creativelife2)
