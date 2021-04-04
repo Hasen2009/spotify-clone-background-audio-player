@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 Spotify clone with background audio player features 
-![](/ezgif.com-gif-makerdcb5d192882f3ef1.gif)
+![](/ezgif.com-gif-maker.gif)
 
 
 ## Features
