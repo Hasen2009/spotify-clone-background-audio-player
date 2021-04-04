@@ -19,6 +19,7 @@ Spotify clone with background audio player features
 ```
 git clone https://github.com/Hasen2009/spotify-clone-background-audio-player.git
 flutter pub get
+flutter run
 ```
 
 ## Contact
