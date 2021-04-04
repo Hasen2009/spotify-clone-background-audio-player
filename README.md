@@ -1,16 +1,25 @@
-# spotify2_app
+# Spotify Clone
+## _Background audio player_
 
-A new Flutter application.
 
-## Getting Started
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-This project is a starting point for a Flutter application.
+Spotify clone with background audio player features 
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Features
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clone main Spotify screens.
+- Connect to Rest Api
+- Play audio, pause, stop ..etc.
+- Play audio in the background.
+- Written with BLoC pattern
+
+## Usage
+```
+git clone https://github.com/Hasen2009/spotify.git
+flutter pub get
+```
+
+## Contact
+Contct me on [Twitter](https://twitter.com/creativelife2)
