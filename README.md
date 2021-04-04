@@ -6,7 +6,7 @@
 
 Spotify clone with background audio player features 
 
-![Alt Text](https://s4.gifyu.com/images/ezgif.com-gif-makerdcb5d192882f3ef1.gif)
+![Show](https://s4.gifyu.com/images/ezgif.com-gif-makerdcb5d192882f3ef1.gif)
 
 
 ## Features
